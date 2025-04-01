@@ -81,16 +81,16 @@ public class EmpDeptSalgradeTests
         Assert.Contains(result, g => g.DeptNo == 30 && g.Count == 2);
     }
 
-    // 7. SelectMany (simulate flattening)
+    // 7. SelectMany (simulate flattening) // SelectMany ???
     // SQL: SELECT EName, Comm FROM Emp WHERE Comm IS NOT NULL;
     [Fact]
     public void ShouldReturnEmployeesWithCommission()
     {
         var emps = Database.GetEmps();
 
-        // var result = null; 
-        //
-        // Assert.All(result, r => Assert.NotNull(r.Comm));
+        var result = emps.Where(emp => emp.Comm.HasValue).Select(emp => new {emp.EName,emp.Comm}).OrderBy(emp => emp.Comm).ToList();
+        
+        Assert.All(result, r => Assert.NotNull(r.Comm));
     }
 
     // 8. Join with Salgrade
