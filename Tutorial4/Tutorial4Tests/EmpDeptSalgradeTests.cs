@@ -36,8 +36,7 @@ public class EmpDeptSalgradeTests
         var emps = Database.GetEmps();
         var depts = Database.GetDepts();
 
-        List<Emp> result = null; 
-
+        List<Emp> result = emps.Where(emp => depts.Where(dept => dept.Loc == "CHICAGO").Select(dept => dept.DeptNo).Contains(emp.DeptNo)).ToList();
         Assert.All(result, e => Assert.Equal(30, e.DeptNo));
     }
 
