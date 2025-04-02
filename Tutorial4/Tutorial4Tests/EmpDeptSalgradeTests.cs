@@ -125,8 +125,8 @@ public class EmpDeptSalgradeTests
     {
         var emps = Database.GetEmps();
 
-        // var result = null; 
-        //
-        // Assert.Contains("ALLEN", result);
+        var result = emps.Where(emp => emp.Sal > emps.Where(e => e.DeptNo == emp.DeptNo).Average(e => e.Sal)).Select(emp => emp.EName);
+        
+        Assert.Contains("ALLEN", result);
     }
 }
